@@ -4,6 +4,8 @@ import './App.css';
 export const App = () => {
 
   const [users, setUsers] = useState([]);
+  const [text, setText] = useState('');
+  const [suggestions, setSuggestions] = useState([]);
 
   useEffect(() => {
     (async () => {
@@ -13,11 +15,44 @@ export const App = () => {
     })()
   }, [])
 
+  const changeHandler = text => {
+    if (!text) {
+      setText('');
+      setSuggestions([]);
+      return;
+    }
+
+    setText(text);
+  }
+
+  const suggestHandler = text => {
+    setText(text);
+    setSuggestions([]);
+  }
+
   console.log(users);
 
   return (
-    <div className="App">
-      123
+    <div className="container">
+      <input
+        type="text"
+        placeholder="name"
+        onChange={e => changeHandler(e.target.value)}
+        value={text}
+
+      />
+
+      {suggestions &&
+        suggestions.map((el, i) => (
+          <div
+            key={i}
+            className="items"
+            onClick={() => suggestHandler(el.name)}
+          >
+            {el.name}
+          </div>
+        ))
+      }
     </div>
   );
 }
