@@ -39,6 +39,7 @@ export const App = () => {
 
   return (
     <div className="container">
+
       <input
         type="text"
         placeholder="name"
@@ -49,7 +50,6 @@ export const App = () => {
             setSuggestions([]);
           }, 100);
         }}
-
       />
 
       {suggestions &&
@@ -63,6 +63,7 @@ export const App = () => {
           </div>
         ))
       }
+
     </div>
   );
 }
