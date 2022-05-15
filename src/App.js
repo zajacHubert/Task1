@@ -22,15 +22,20 @@ export const App = () => {
       return;
     }
 
+    const matches = users.filter(user => {
+      const tokenizedName = user.name.split(' ');
+      return tokenizedName.some((namePart) =>
+        namePart.toLowerCase().startsWith(text.toLowerCase()));
+    });
+
     setText(text);
+    setSuggestions(matches);
   }
 
   const suggestHandler = text => {
     setText(text);
     setSuggestions([]);
   }
-
-  console.log(users);
 
   return (
     <div className="container">
@@ -39,6 +44,11 @@ export const App = () => {
         placeholder="name"
         onChange={e => changeHandler(e.target.value)}
         value={text}
+        onBlur={() => {
+          setTimeout(() => {
+            setSuggestions([]);
+          }, 100);
+        }}
 
       />
 
